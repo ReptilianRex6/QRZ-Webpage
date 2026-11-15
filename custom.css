@@ -1,0 +1,38 @@
+/* KM7CPJ | Dark Field Station - paste into QRZ Custom CSS editor */
+#csbody { background:#0b1118; color:#dce6ef; font-family:Arial,Helvetica,sans-serif; }
+#calldata {background:#111c27;color:#dce6ef;border:1px solid #34495e;border-radius:8px;padding:12px}
+#calldata a {color:#67c7f5}
+#t_bio.biodiv {background:#101820 !important;color:#dce6ef !important;border:1px solid #34495e;border-radius:10px;padding:18px;box-sizing:border-box}
+#biodata {width:100%;margin:0;padding:0;color:#dce6ef;font-family:Arial,Helvetica,sans-serif}
+#biodata * {box-sizing:border-box}
+#biodata .qrz-page {background:#101820;border:1px solid #2d3e50;border-radius:12px;padding:12px;width:100%;max-width:100%;overflow:hidden}
+#biodata p {color:#dce6ef;font-size:16px;line-height:1.65}
+#biodata a {color:#67c7f5;text-decoration:none}
+#biodata a:hover {text-decoration:underline}
+#biodata h2 {color:#f4a825;font-size:23px;border-bottom:1px solid #43596c;padding-bottom:9px;margin:0 0 16px;font-weight:700}
+#biodata h3 {color:#67c7f5;font-size:20px;margin:0 0 9px}
+#biodata img {max-width:100%;height:auto;border:1px solid #45596d;border-radius:7px;padding:4px;background:#0b1118}
+#biodata .qrz-header {background:linear-gradient(135deg,#1c3042,#101c2a);border:1px solid #34495e;border-top:4px solid #f4a825;border-radius:10px;padding:30px 15px;text-align:center;margin:0 0 16px}
+#biodata .qrz-header .header-kicker {color:#81b4d0;font-size:11px;letter-spacing:2px;font-weight:bold;margin:0 0 12px}
+#biodata .qrz-header .callsign {color:#67c7f5;font-size:clamp(30px,6vw,52px);font-weight:800;letter-spacing:4px;line-height:1.1;margin:0 0 10px}
+#biodata .qrz-header .subtitle {color:#f4a825;font-size:16px;font-weight:bold;margin:0 0 10px}
+#biodata .qrz-header .welcome {color:#cfdae4;font-size:15px;margin:0}
+#biodata .header-pills {margin-top:20px}
+#biodata .header-pills span {display:inline-block;color:#b9e9ff;background:#142637;border:1px solid #345066;border-radius:20px;padding:6px 10px;margin:3px;font-size:11px;font-weight:bold;letter-spacing:.5px}
+#biodata .section-block {background:#16212e;border:1px solid #334155;border-radius:10px;padding:20px;margin:0 0 16px}
+#biodata .section-block p {margin:0 0 12px}
+#biodata .section-block p:last-child {margin-bottom:0}
+#biodata .interests {text-align:center;line-height:2.5}
+#biodata .interest {display:inline-block;background:#172635;color:#dce6ef;border:1px solid #34495e;border-radius:5px;padding:4px 10px;margin:3px;font-weight:bold;font-size:13px}
+#biodata .radio-card, #biodata .mesh-card {background:#111a24;border:1px solid #34495e;border-left:4px solid #67c7f5;border-radius:8px;padding:16px;margin:0 0 14px}
+#biodata .mesh-card {border-left-color:#f4b942;text-align:center;margin-bottom:0}
+#biodata .radio-card img,#biodata .mesh-card img {display:block;margin:12px auto 0}
+#biodata .radio-card:last-child {margin-bottom:0}
+#biodata .propagation-frame {background:#0b111c;border:1px solid #34495e;border-radius:10px;overflow:hidden;margin:16px 0}
+#biodata .propagation-frame iframe {display:block;width:100%;height:640px;border:0}
+#biodata .source-note {font-size:12px !important;color:#a8b8c6 !important}
+#biodata .qrz-footer {background:#111c27;border:1px solid #34495e;border-radius:8px;padding:22px;text-align:center;color:#e8edf3}
+#biodata .qrz-footer .seventy-three {color:#f4b942;font-size:28px;font-weight:bold;margin-bottom:8px}
+#biodata .qrz-footer p {color:#e8edf3;margin:8px 0}
+#biodata .qrz-footer .name {color:#67c7f5;font-size:19px;font-weight:bold;margin-top:8px}
+@media(max-width:600px){#t_bio.biodiv{padding:7px}#biodata .qrz-page{padding:6px}#biodata .section-block{padding:13px}#biodata .qrz-header{padding:23px 9px}#biodata .propagation-frame iframe{height:670px}}
