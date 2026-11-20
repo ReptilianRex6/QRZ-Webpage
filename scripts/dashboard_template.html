@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KM7CPJ | HF Propagation</title>
+<style>
+:root { color-scheme: dark; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: #0b111c; color: #eef5fb; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 10px; background: #0b111c; }
+.dashboard { max-width: 920px; margin: auto; border: 1px solid #293e51; border-radius: 18px; background: linear-gradient(145deg, #172535, #0d1724); padding: 14px 16px; box-shadow: 0 12px 35px #0004; }
+.head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+.eyebrow { font-size: .73rem; letter-spacing: .17em; color: #75d8c4; font-weight: 750; }
+.callsign { font-size: clamp(1.65rem, 5vw, 2.5rem); font-weight: 850; letter-spacing: .04em; margin: 2px 0; }
+.sub { color: #9cb0c2; font-size: .85rem; }
+.pill { border-radius: 50px; border: 1px solid #325c55; background: #11332e; color: #a9efd2; padding: 8px 12px; font-size: .78rem; font-weight: 700; }
+.pill.estimate, .pill.stale { border-color: #6a5428; background: #3a2c12; color: #ffcc74; }
+.pill.err { border-color: #6a3030; background: #3a1c22; color: #ffb3a6; }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 8px 0; }
+.metric { border: 1px solid #293f50; border-radius: 12px; background: #111f2e; padding: 9px 10px; }
+.metric small { color: #91a9bc; font-size: .73rem; display: block; margin-bottom: 5px; }
+.metric strong { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.section { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; margin: 0 0 9px; }
+.section h2 { font-size: 1.02rem; margin: 0; }
+.section span { color: #849cae; font-size: .73rem; }
+.bandhead, .band { display: grid; grid-template-columns: 1.2fr .9fr .9fr; gap: 8px; align-items: center; }
+.bandhead { font-size: .7rem; color: #839bad; text-transform: uppercase; letter-spacing: .09em; padding: 4px 12px; }
+.band { background: #122233; border: 1px solid #2b4052; border-radius: 11px; margin-bottom: 4px; padding: 6px 12px; }
+.bandname { font-weight: 800; font-size: 1.17rem; }
+.freq { font-size: .7rem; color: #8ea4b6; display: block; margin-top: 2px; }
+.condition { display: inline-block; padding: 7px 9px; min-width: 73px; text-align: center; border-radius: 7px; font-size: .78rem; font-weight: 800; }
+.good, .excellent { background: #143d35; color: #76e0ac; }
+.fair, .marginal { background: #49371b; color: #ffcc74; }
+.poor, .closed { background: #48282b; color: #ff9595; }
+.unknown { background: #293746; color: #b9c5cd; }
+.foot { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid #2b4052; margin-top: 8px; padding-top: 8px; color: #91a9bc; font-size: .76rem; line-height: 1.45; }
+.foot a { color: #80ddcd; }
+.note { margin-top: 5px; color: #8ea4b6; font-size: .73rem; }
+@media (max-width: 460px) {
+  body { padding: 6px; }
+  .dashboard { padding: 12px; border-radius: 12px; }
+  .metrics { gap: 6px; }
+  .metric { padding: 8px 6px; }
+  .metric strong { font-size: .92rem; }
+  .metric small { font-size: .6rem; }
+  .band { padding: 8px; }
+  .condition { min-width: 0; width: 100%; padding: 7px 4px; }
+  .bandname { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+<main class="dashboard">
+<header class="head">
+<div>
+<div class="eyebrow">AMATEUR RADIO / LIVE BAND OUTLOOK</div>
+<h1 class="callsign">KM7CPJ <span style="color:#67d9bc">// HF</span></h1>
+<div class="sub">80m · 40m · 20m · 15m · 10m</div>
+</div>
+<div class="pill{{PILL_CLASS}}" role="status">{{PILL}}</div>
+</header>
+<section class="metrics" aria-label="Solar conditions">
+<div class="metric"><small>Solar Flux (SFI)</small><strong>{{SFI}}</strong></div>
+<div class="metric"><small>K-index</small><strong>{{K}}</strong></div>
+<div class="metric"><small>A-index</small><strong>{{A}}</strong></div>
+<div class="metric"><small>Geomagnetic</small><strong>{{GEO}}</strong></div>
+</section>
+<div class="section"><h2>{{SECTION}}</h2><span>DAY / NIGHT</span></div>
+<div class="bandhead"><span>Band</span><span>Day</span><span>Night</span></div>
+<div>{{BANDS}}</div>
+<p class="note">{{NOTE}}</p>
+<footer class="foot"><span>{{UPDATED}}</span><span>{{CREDIT}}</span></footer>
+</main>
+</body>
+</html>
