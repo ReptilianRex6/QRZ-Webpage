@@ -6,15 +6,15 @@
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0b111c;color:#eef5fb}
 *{box-sizing:border-box}body{margin:0;padding:18px;background:#0b111c}.dashboard{max-width:920px;margin:auto;border:1px solid #293e51;border-radius:18px;background:linear-gradient(145deg,#172535,#0d1724);padding:22px;box-shadow:0 12px 35px #0004}
-.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.eyebrow{font-size:.73rem;letter-spacing:.17em;color:#75d8c4;font-weight:750}.callsign{font-size:clamp(1.65rem,5vw,2.5rem);font-weight:850;letter-spacing:.04em;margin:4px 0}.sub{color:#9cb0c2;font-size:.85rem}.pill{border-radius:50px;border:1px solid #325c55;background:#11332e;color:#a9efd2;padding:8px 12px;font-size:.78rem;font-weight:700}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}.metric{border:1px solid #293f50;border-radius:12px;background:#111f2e;padding:14px}.metric small{color:#91a9bc;font-size:.73rem;display:block;margin-bottom:5px}.metric strong{font-size:1.3rem;font-variant-numeric:tabular-nums}.section{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap;margin:0 0 9px}.section h2{font-size:1.02rem;margin:0}.section span{color:#849cae;font-size:.73rem}.bandhead,.band{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center}.bandhead{font-size:.7rem;color:#839bad;text-transform:uppercase;letter-spacing:.09em;padding:8px 12px}.band{background:#122233;border:1px solid #2b4052;border-radius:11px;margin-bottom:8px;padding:11px 12px}.bandname{font-weight:800;font-size:1.17rem}.freq{font-size:.7rem;color:#8ea4b6;display:block;margin-top:2px}.condition{display:inline-block;padding:7px 9px;min-width:73px;text-align:center;border-radius:7px;font-size:.78rem;font-weight:800}.good,.excellent{background:#143d35;color:#76e0ac}.fair,.marginal{background:#49371b;color:#ffcc74}.poor,.closed{background:#48282b;color:#ff9595}.unknown{background:#293746;color:#b9c5cd}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #2b4052;margin-top:16px;padding-top:14px;color:#91a9bc;font-size:.76rem;line-height:1.55}.foot a{color:#80ddcd}.err{color:#ffb3a6}.note{margin-top:5px;color:#8ea4b6;font-size:.73rem}@media(max-width:460px){body{padding:6px}.dashboard{padding:14px;border-radius:12px}.metrics{gap:6px}.metric{padding:10px 8px}.metric strong{font-size:1.02rem}.metric small{font-size:.64rem}.band{padding:10px 8px}.condition{min-width:0;width:100%;padding:7px 4px}.bandname{font-size:1rem}}
+.head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.eyebrow{font-size:.73rem;letter-spacing:.17em;color:#75d8c4;font-weight:750}.callsign{font-size:clamp(1.65rem,5vw,2.5rem);font-weight:850;letter-spacing:.04em;margin:4px 0}.sub{color:#9cb0c2;font-size:.85rem}.pill{border-radius:50px;border:1px solid #325c55;background:#11332e;color:#a9efd2;padding:8px 12px;font-size:.78rem;font-weight:700}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}.metric{border:1px solid #293f50;border-radius:12px;background:#111f2e;padding:14px}.metric small{color:#91a9bc;font-size:.73rem;display:block;margin-bottom:5px}.metric strong{font-size:1.3rem;font-variant-numeric:tabular-nums}.section{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap;margin:0 0 9px}.section h2{font-size:1.02rem;margin:0}.section span{color:#849cae;font-size:.73rem}.bandhead,.band{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center}.bandhead{font-size:.7rem;color:#839bad;text-transform:uppercase;letter-spacing:.09em;padding:8px 12px}.band{background:#122233;border:1px solid #2b4052;border-radius:11px;margin-bottom:8px;padding:11px 12px}.bandname{font-weight:800;font-size:1.17rem}.freq{font-size:.7rem;color:#8ea4b6;display:block;margin-top:2px}.condition{display:inline-block;padding:7px 9px;min-width:73px;text-align:center;border-radius:7px;font-size:.78rem;font-weight:800}.good,.excellent{background:#143d35;color:#76e0ac}.fair,.marginal{background:#49371b;color:#ffcc74}.poor,.closed{background:#48282b;color:#ff9595}.unknown{background:#293746;color:#b9c5cd}.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #2b4052;margin-top:16px;padding-top:14px;color:#91a9bc;font-size:.76rem;line-height:1.55}.foot a{color:#80ddcd}.err{color:#ffb3a6}.note{margin-top:5px;color:#8ea4b6;font-size:.73rem}.pill.estimate{border-color:#6a5428;background:#3a2c12;color:#ffcc74}.now{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}.condition{min-width:0}.meta{color:#9cb0c2;font-size:.72rem;font-weight:650;line-height:1.35}.best{color:#75d8c4;font-weight:750}.outlook{margin-top:4px;color:#9cb0c2;font-size:.73rem;line-height:1.4}.outlook[hidden]{display:none}body{padding:10px}.dashboard{padding:14px 16px}.callsign{margin:2px 0}.metrics{margin:12px 0}.metric{padding:9px 12px}.metric strong{font-size:1.15rem}.bandhead,.band{grid-template-columns:1.15fr 0.95fr 1.35fr}.band{padding:6px 10px;margin-bottom:5px}.freq{display:inline;margin-top:0;font-size:.72rem}.bandname{font-size:1.02rem}.bandhead{padding:4px 10px}.condition{padding:5px 8px}.foot{margin-top:10px;padding-top:8px}@media(max-width:460px){body{padding:6px}.dashboard{padding:10px;border-radius:12px}.metrics{gap:6px;margin:8px 0}.metric{padding:8px 8px}.metric strong{font-size:1.02rem}.metric small{font-size:.64rem}.band{padding:8px 8px}.condition{min-width:0;width:auto;padding:5px 4px}.bandname{font-size:1rem}.meta{font-size:.64rem}}
 </style>
 </head>
 <body><main class="dashboard">
 <header class="head"><div><div class="eyebrow">AMATEUR RADIO / LIVE BAND OUTLOOK</div><h1 class="callsign">KM7CPJ <span style="color:#67d9bc">// HF</span></h1><div class="sub">80m · 40m · 20m · 15m · 10m</div></div><div class="pill" id="status" role="status">● LOADING</div></header>
-<section class="metrics" aria-label="Solar conditions"><div class="metric"><small>Solar Flux (SFI)</small><strong id="sfi">—</strong></div><div class="metric"><small>K-index</small><strong id="k">—</strong></div><div class="metric"><small>Geomagnetic</small><strong id="geo">—</strong></div></section>
-<div class="section"><h2>Estimated HF band conditions</h2><span>DAY / NIGHT</span></div><div class="bandhead"><span>BAND</span><span>DAY</span><span>NIGHT</span></div>
-<div id="bands" aria-live="polite"></div><p class="note">Day/night ratings are broad estimates from the NOAA solar flux, planetary K-index, and X-ray flux. They are not real-time contact reports or path-specific predictions.</p>
-<footer class="foot"><span id="updated">Checking source...</span><span>Data: <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener noreferrer">NOAA SWPC</a></span></footer>
+<section class="metrics" aria-label="Solar conditions"><div class="metric"><small id="m1">Solar Flux (est.)</small><strong id="sfi">—</strong></div><div class="metric"><small id="m2">K-index (est.)</small><strong id="k">—</strong></div><div class="metric"><small id="m3">MUF (est.)</small><strong id="geo">—</strong></div></section>
+<div class="section"><h2 id="band-title">HF bands right now</h2><span id="band-mode">OPEN · BEST HOURS</span></div><div class="bandhead" id="bandhead"><span>BAND</span><span>NOW</span><span>BEST / ACTIVITY</span></div>
+<div id="bands" aria-live="polite"></div><div id="outlook" class="outlook" hidden></div><p class="note" id="note">Checking HamRadioList, then NOAA if that feed is unavailable.</p>
+<footer class="foot"><span id="updated">Checking source...</span><span id="credit"></span></footer>
 </main>
 <script>
 const requested = [80, 40, 20, 15, 10];
@@ -23,6 +23,7 @@ const MHz = {80:'3.5–4.0 MHz', 40:'7.0–7.3 MHz', 20:'14.0–14.35 MHz', 15:'
 const centers = {80:3.6, 40:7.1, 20:14.15, 15:21.2, 10:28.5};
 const LEVELS = ['Poor', 'Fair', 'Good'];
 const URLS = {
+  hrl: 'https://hamradiolist.com/api/worldwide_hf_propagation.php',
   flux: 'https://services.swpc.noaa.gov/products/summary/10cm-flux.json',
   kp: 'https://services.swpc.noaa.gov/json/planetary_k_index_1m.json',
   kp3h: 'https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json',
@@ -30,6 +31,10 @@ const URLS = {
 };
 const root = document.getElementById('bands');
 let refreshSeq = 0;
+const NOTES = {
+  hrl: 'Scores can match across bands. Open now, best hours, and recent QSOs are the per-band detail from HamRadioList. Not a guarantee of a contact.',
+  noaa: 'HamRadioList was unavailable. Day/night ratings are estimates from the NOAA solar flux, planetary K-index, and X-ray flux, not contact reports.'
+};
 
 function safeText(v) { return typeof v === 'string' && v ? v : '—'; }
 function tag(value) {
@@ -40,23 +45,83 @@ function tag(value) {
   el.textContent = v;
   return el;
 }
-function render(items) {
+function bandName(m, best) {
+  const name = document.createElement('div');
+  name.className = 'bandname';
+  name.textContent = m + 'm ';
+  const f = document.createElement('span');
+  f.className = 'freq';
+  f.textContent = MHz[m];
+  name.append(f);
+  if (best) {
+    const mark = document.createElement('span');
+    mark.className = 'best';
+    mark.textContent = ' · best now';
+    name.append(mark);
+  }
+  return name;
+}
+function renderNoaa(items) {
   root.replaceChildren();
   for (const m of requested) {
     const data = items.find(x => Number(x.band_m) === m) || {};
     const row = document.createElement('div');
     row.className = 'band';
-    const name = document.createElement('div');
-    const b = document.createElement('div');
-    b.className = 'bandname';
-    b.textContent = m + 'm';
-    const f = document.createElement('span');
-    f.className = 'freq';
-    f.textContent = MHz[m];
-    name.append(b, f);
-    row.append(name, tag(data.day), tag(data.night));
+    row.append(bandName(m, false), tag(data.day), tag(data.night));
     root.append(row);
   }
+}
+function hrlBand(data, m) {
+  return (data.bands || []).find(b => String(b && b.band || '').toUpperCase() === m + 'M') || null;
+}
+function qsoLine(band) {
+  const day = Number(band.qsos_24h);
+  const hour = Number(band.qsos_1h);
+  if (!Number.isFinite(day) && !Number.isFinite(hour)) return '';
+  const dayText = Number.isFinite(day) ? day + ' QSOs/24h' : '';
+  if (Number.isFinite(hour) && hour > 0) return hour + '/1h · ' + (dayText || '—');
+  return dayText;
+}
+function renderHrl(data) {
+  const best = new Set((data.current.best_bands_now || []).map(b => String(b).toUpperCase()));
+  root.replaceChildren();
+  for (const m of requested) {
+    const band = hrlBand(data, m) || {};
+    const row = document.createElement('div');
+    row.className = 'band';
+    const now = document.createElement('div');
+    now.className = 'now';
+    const word = typeof band.condition === 'string' ? band.condition : '—';
+    now.append(tag(word));
+    const bits = [];
+    if (typeof band.open_now === 'boolean') bits.push(band.open_now ? 'Open now' : 'Closed now');
+    if (Number.isFinite(Number(band.score))) bits.push(String(band.score));
+    if (bits.length) {
+      const state = document.createElement('span');
+      state.className = 'meta';
+      state.textContent = bits.join(' · ');
+      now.append(state);
+    }
+    const activity = document.createElement('div');
+    activity.className = 'meta';
+    const hours = typeof band.best_hours === 'string' && band.best_hours ? band.best_hours : '';
+    const qsos = qsoLine(band);
+    activity.textContent = [hours, qsos].filter(Boolean).join(' · ') || '—';
+    const tip = [band.dx_range, band.noise_level ? band.noise_level + ' noise' : '', band.description]
+      .filter(v => typeof v === 'string' && v).join(' · ');
+    if (tip) row.title = tip;
+    row.append(bandName(m, best.has(m + 'M')), now, activity);
+    root.append(row);
+  }
+  const outlook = document.getElementById('outlook');
+  const days = Array.isArray(data.forecast_7d) ? data.forecast_7d.slice(0, 7) : [];
+  const line = days.map(day => {
+    const name = typeof day.day === 'string' ? day.day : '';
+    const score = Number.isFinite(Number(day.score)) ? String(day.score) : '—';
+    return (name ? name + ' ' : '') + score;
+  }).filter(Boolean).join(' · ');
+  outlook.textContent = line ? '7-day outlook: ' + line : '';
+  outlook.hidden = !line;
 }
 function rowsOf(data) {
   if (Array.isArray(data)) return data;
@@ -138,14 +203,97 @@ async function loadJson(url, signal) {
   if (!res.ok) throw new Error('HTTP ' + res.status);
   return res.json();
 }
+function link(href, text) {
+  const a = document.createElement('a');
+  a.href = href;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.textContent = text;
+  return a;
+}
+function setCredit(mode) {
+  const el = document.getElementById('credit');
+  el.replaceChildren();
+  if (mode === 'noaa') {
+    el.append('Estimate: ', link('https://www.swpc.noaa.gov/', 'NOAA SWPC'));
+    return;
+  }
+  el.append('Data: ', link('https://hamradiolist.com/hf-propagation.php', 'www.hamradiolist.com'));
+}
+function setChrome(mode) {
+  const status = document.getElementById('status');
+  status.classList.remove('err', 'estimate');
+  const outlook = document.getElementById('outlook');
+  if (mode === 'hrl') {
+    status.textContent = '● DATA LOADED';
+    document.getElementById('m1').textContent = 'Solar Flux (est.)';
+    document.getElementById('m2').textContent = 'K-index (est.)';
+    document.getElementById('m3').textContent = 'MUF (est.)';
+    document.getElementById('band-title').textContent = 'HF bands right now';
+    document.getElementById('band-mode').textContent = 'OPEN · BEST HOURS';
+    document.getElementById('bandhead').children[1].textContent = 'NOW';
+    document.getElementById('bandhead').children[2].textContent = 'BEST / ACTIVITY';
+    document.getElementById('note').textContent = NOTES.hrl;
+    setCredit('hrl');
+    return;
+  }
+  status.textContent = '● NOAA ESTIMATE';
+  status.classList.add('estimate');
+  document.getElementById('m1').textContent = 'Solar Flux (SFI)';
+  document.getElementById('m2').textContent = 'K-index';
+  document.getElementById('m3').textContent = 'Geomagnetic';
+  document.getElementById('band-title').textContent = 'Estimated HF band conditions';
+  document.getElementById('band-mode').textContent = 'DAY / NIGHT';
+  document.getElementById('bandhead').children[1].textContent = 'DAY';
+  document.getElementById('bandhead').children[2].textContent = 'NIGHT';
+  document.getElementById('note').textContent = NOTES.noaa;
+  outlook.hidden = true;
+  outlook.replaceChildren();
+  setCredit('noaa');
+}
 function setUnavailable() {
   const status = document.getElementById('status');
-  status.textContent = '● DATA UNAVAILABLE';
+  status.classList.remove('estimate');
   status.classList.add('err');
+  status.textContent = '● DATA UNAVAILABLE';
   document.getElementById('updated').textContent = 'Could not retrieve live data. Open the source link to check current conditions.';
+  document.getElementById('note').textContent = 'Live data could not be loaded from HamRadioList or NOAA. The source link has the latest conditions.';
+  setCredit('down');
 }
-async function refresh() {
-  const id = ++refreshSeq;
+function parseHrlTime(s) {
+  if (typeof s !== 'string') return NaN;
+  const match = s.match(/(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})/);
+  return match ? Date.parse(match[1] + 'T' + match[2] + 'Z') : Date.parse(s);
+}
+function showHrl(data) {
+  const current = data.current || {};
+  const sfi = Number(current.solar_flux_est);
+  const kp = Number(current.k_index_est);
+  const muf = Number(current.muf_estimate);
+  if (!Number.isFinite(sfi) || !Number.isFinite(kp)) throw new Error('HamRadioList indices missing');
+  if (!requested.some(m => hrlBand(data, m))) throw new Error('HamRadioList bands missing');
+  setChrome('hrl');
+  renderHrl(data);
+  document.getElementById('sfi').textContent = Number.isInteger(sfi) ? String(sfi) : sfi.toFixed(1);
+  document.getElementById('k').textContent = formatKp(kp);
+  document.getElementById('geo').textContent = Number.isFinite(muf) ? muf.toFixed(1) : '—';
+  const stamp = parseHrlTime(data.generated_at_utc);
+  document.getElementById('updated').textContent = Number.isNaN(stamp)
+    ? 'HamRadioList time unavailable'
+    : 'Updated: ' + new Date(stamp).toLocaleString();
+}
+async function loadHamRadioList() {
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), 8000);
+  try {
+    const data = await loadJson(URLS.hrl, ctrl.signal);
+    if (!data || data.ok === false || !Array.isArray(data.bands)) throw new Error('HamRadioList payload');
+    return data;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+async function refreshNoaa(id) {
   const ctrl = new AbortController();
   const timeout = setTimeout(() => ctrl.abort(), 12000);
   // X-ray only adjusts daytime ratings during a strong flare. Give it its own
@@ -171,13 +319,11 @@ async function refresh() {
     const xray = xrayR.status === 'fulfilled'
       ? lastNumeric(rowsOf(xrayR.value).filter(r => r && r.energy === '0.1-0.8nm'), r => r.flux)
       : null;
-    render(bandConditions(flux.value, kp.value, aIndex, xray ? xray.value : NaN));
+    setChrome('noaa');
+    renderNoaa(bandConditions(flux.value, kp.value, aIndex, xray ? xray.value : NaN));
     document.getElementById('sfi').textContent = Number.isInteger(flux.value) ? String(flux.value) : flux.value.toFixed(1);
     document.getElementById('k').textContent = formatKp(kp.value);
     document.getElementById('geo').textContent = geomagnetic(kp.value, aIndex);
-    const status = document.getElementById('status');
-    status.classList.remove('err');
-    status.textContent = '● DATA LOADED';
     const stamp = parseNoaaTime(kp.time);
     document.getElementById('updated').textContent = Number.isNaN(stamp)
       ? 'Data timestamp unavailable'
@@ -192,7 +338,35 @@ async function refresh() {
     ctrl.signal.removeEventListener('abort', stopXray);
   }
 }
-render([]);
+function renderPending() {
+  root.replaceChildren();
+  for (const m of requested) {
+    const row = document.createElement('div');
+    row.className = 'band';
+    const now = document.createElement('div');
+    now.className = 'now';
+    now.append(tag('—'));
+    const activity = document.createElement('div');
+    activity.className = 'meta';
+    activity.textContent = '—';
+    row.append(bandName(m, false), now, activity);
+    root.append(row);
+  }
+}
+async function refresh() {
+  const id = ++refreshSeq;
+  try {
+    const data = await loadHamRadioList();
+    if (id !== refreshSeq) return;
+    showHrl(data);
+  } catch (e) {
+    if (id !== refreshSeq) return;
+    console.error(e);
+    await refreshNoaa(id);
+  }
+}
+setCredit('hrl');
+renderPending();
 refresh();
 setInterval(refresh, 300000);
 </script></body></html>
