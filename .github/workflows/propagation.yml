@@ -1,0 +1,36 @@
+name: Update propagation page
+
+on:
+  schedule:
+    # Every 15 minutes. GitHub runs scheduled workflows from the default branch only, and may start them late.
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: propagation-page
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build static dashboard
+        run: python3 scripts/build_dashboard.py
+
+      - name: Commit updated page
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html data/conditions.json
+          if git diff --cached --quiet; then
+            echo "No change in propagation data."
+            exit 0
+          fi
+          git commit -m "Update HF propagation dashboard"
+          git push
