@@ -13,20 +13,186 @@
 <header class="head"><div><div class="eyebrow">AMATEUR RADIO / LIVE BAND OUTLOOK</div><h1 class="callsign">KM7CPJ <span style="color:#67d9bc">// HF</span></h1><div class="sub">80m · 40m · 20m · 15m · 10m</div></div><div class="pill" id="status" role="status">● LOADING</div></header>
 <section class="metrics" aria-label="Solar conditions"><div class="metric"><small>Solar Flux (SFI)</small><strong id="sfi">—</strong></div><div class="metric"><small>K-index</small><strong id="k">—</strong></div><div class="metric"><small>Geomagnetic</small><strong id="geo">—</strong></div></section>
 <div class="section"><h2>Estimated HF band conditions</h2><span>DAY / NIGHT</span></div><div class="bandhead"><span>BAND</span><span>DAY</span><span>NIGHT</span></div>
-<div id="bands" aria-live="polite"></div><p class="note">Day/night ratings are broad propagation estimates, not real-time contact reports or path-specific predictions.</p>
-<footer class="foot"><span id="updated">Checking source...</span><span>Data: <a href="https://www.mapforham.com/hf-propagation/" target="_blank" rel="noopener noreferrer">Map For HAM</a> · NOAA SWPC</span></footer>
+<div id="bands" aria-live="polite"></div><p class="note">Day/night ratings are broad estimates from the NOAA solar flux, planetary K-index, and X-ray flux. They are not real-time contact reports or path-specific predictions.</p>
+<footer class="foot"><span id="updated">Checking source...</span><span>Data: <a href="https://www.swpc.noaa.gov/" target="_blank" rel="noopener noreferrer">NOAA SWPC</a></span></footer>
 </main>
 <script>
-const requested=[80,40,20,15,10], MHz={80:'3.5–4.0 MHz',40:'7.0–7.3 MHz',20:'14.0–14.35 MHz',15:'21.0–21.45 MHz',10:'28.0–29.7 MHz'};
-const root=document.getElementById('bands');
-function safeText(v){return typeof v==='string'?v:'—'}
-function tag(value){const v=safeText(value),cls=['excellent','good','fair','marginal','poor','closed'].includes(v.toLowerCase())?v.toLowerCase():'unknown';const el=document.createElement('span');el.className='condition '+cls;el.textContent=v;return el}
-function render(items){root.replaceChildren();for(const m of requested){const data=items.find(x=>Number(x.band_m)===m)||{};const row=document.createElement('div');row.className='band';const name=document.createElement('div');const b=document.createElement('div');b.className='bandname';b.textContent=m+'m';const f=document.createElement('span');f.className='freq';f.textContent=MHz[m];name.append(b,f);row.append(name,tag(data.day),tag(data.night));root.append(row)}}
+const requested = [80, 40, 20, 15, 10];
+const MHz = {80:'3.5–4.0 MHz', 40:'7.0–7.3 MHz', 20:'14.0–14.35 MHz', 15:'21.0–21.45 MHz', 10:'28.0–29.7 MHz'};
+// Center frequencies used by the MUF comparison. The labels above stay the amateur allocations.
+const centers = {80:3.6, 40:7.1, 20:14.15, 15:21.2, 10:28.5};
+const LEVELS = ['Poor', 'Fair', 'Good'];
+const URLS = {
+  flux: 'https://services.swpc.noaa.gov/products/summary/10cm-flux.json',
+  kp: 'https://services.swpc.noaa.gov/json/planetary_k_index_1m.json',
+  kp3h: 'https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json',
+  xray: 'https://services.swpc.noaa.gov/json/goes/primary/xrays-6-hour.json'
+};
+const root = document.getElementById('bands');
+let refreshSeq = 0;
+
+function safeText(v) { return typeof v === 'string' && v ? v : '—'; }
+function tag(value) {
+  const v = safeText(value);
+  const cls = ['excellent','good','fair','marginal','poor','closed'].includes(v.toLowerCase()) ? v.toLowerCase() : 'unknown';
+  const el = document.createElement('span');
+  el.className = 'condition ' + cls;
+  el.textContent = v;
+  return el;
+}
+function render(items) {
+  root.replaceChildren();
+  for (const m of requested) {
+    const data = items.find(x => Number(x.band_m) === m) || {};
+    const row = document.createElement('div');
+    row.className = 'band';
+    const name = document.createElement('div');
+    const b = document.createElement('div');
+    b.className = 'bandname';
+    b.textContent = m + 'm';
+    const f = document.createElement('span');
+    f.className = 'freq';
+    f.textContent = MHz[m];
+    name.append(b, f);
+    row.append(name, tag(data.day), tag(data.night));
+    root.append(row);
+  }
+}
+function rowsOf(data) {
+  if (Array.isArray(data)) return data;
+  if (data && typeof data === 'object') return [data];
+  return [];
+}
+function lastNumeric(rows, pick) {
+  for (let i = rows.length - 1; i >= 0; i--) {
+    const row = rows[i];
+    if (!row || typeof row !== 'object') continue;
+    const value = Number(pick(row));
+    if (Number.isFinite(value)) return {value, time: row.time_tag};
+  }
+  return null;
+}
+function parseNoaaTime(s) {
+  if (typeof s !== 'string' || !s) return NaN;
+  const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/.test(s) ? s : s + 'Z';
+  return Date.parse(normalized);
+}
+function formatKp(n) {
+  const text = (Math.round(n * 100) / 100).toFixed(2);
+  return text.replace(/\.00$/, '').replace(/(\.\d)0$/, '$1');
+}
+function lower(level, steps) {
+  const i = LEVELS.indexOf(level);
+  return LEVELS[Math.max(0, i - steps)];
+}
+function cap(level, max) {
+  return LEVELS[Math.min(LEVELS.indexOf(level), LEVELS.indexOf(max))];
+}
+// Day MUF ≈ 8 + 0.12×SFI MHz; night MUF is 65% of that. Ratio ≥1.2 Good, ≥0.7 Fair, else Poor.
+// Daytime D-layer absorption caps bands under 8 MHz at Fair and under 4 MHz at Poor.
+// Kp ≥5 lowers every rating one step (two at Kp ≥7). Kp 4 lowers night-time low bands only.
+// A running A-index ≥15 lowers night-time low bands again, unless a storm penalty already applies.
+// An M5 or stronger flare lowers daytime ratings one step; X1 or stronger lowers them two.
+function bandConditions(sfi, kp, aIndex, xray) {
+  const mufDay = 8 + 0.12 * sfi;
+  const mufNight = 0.65 * mufDay;
+  const stormSteps = kp >= 7 ? 2 : kp >= 5 ? 1 : 0;
+  const flareSteps = !Number.isFinite(xray) ? 0 : xray >= 1e-4 ? 2 : xray >= 5e-5 ? 1 : 0;
+  return requested.map(m => {
+    const mhz = centers[m];
+    let day = rating(mufDay, mhz);
+    if (mhz < 4) day = cap(day, 'Poor');
+    else if (mhz < 8) day = cap(day, 'Fair');
+    let night = rating(mufNight, mhz);
+    if (stormSteps) {
+      day = lower(day, stormSteps);
+      night = lower(night, stormSteps);
+    } else if (kp >= 4 && mhz < 10) {
+      night = lower(night, 1);
+    }
+    if (Number.isFinite(aIndex) && aIndex >= 15 && kp < 5 && mhz < 10) night = lower(night, 1);
+    if (flareSteps) day = lower(day, flareSteps);
+    return {band_m: m, day, night};
+  });
+}
+function rating(muf, mhz) {
+  const ratio = muf / mhz;
+  if (ratio >= 1.2) return 'Good';
+  if (ratio >= 0.7) return 'Fair';
+  return 'Poor';
+}
+function geomagnetic(kp, aIndex) {
+  if (kp >= 5) return 'STORM';
+  if (kp >= 4) return 'ACTIVE';
+  if (kp >= 3 || (Number.isFinite(aIndex) && aIndex >= 15)) return 'UNSETTLED';
+  return 'QUIET';
+}
+function runningA(rows) {
+  const recent = rows.filter(r => r && Number.isFinite(Number(r.a_running))).slice(-8);
+  if (!recent.length) return null;
+  const mean = recent.reduce((sum, r) => sum + Number(r.a_running), 0) / recent.length;
+  return Math.round(mean);
+}
+async function loadJson(url, signal) {
+  const res = await fetch(url, {cache: 'no-store', signal});
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+function setUnavailable() {
+  const status = document.getElementById('status');
+  status.textContent = '● DATA UNAVAILABLE';
+  status.classList.add('err');
+  document.getElementById('updated').textContent = 'Could not retrieve live data. Open the source link to check current conditions.';
+}
+async function refresh() {
+  const id = ++refreshSeq;
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), 12000);
+  // X-ray only adjusts daytime ratings during a strong flare. Give it its own
+  // deadline so a slow GOES file cannot blank the flux and K-index.
+  const xrayCtrl = new AbortController();
+  const xrayTimer = setTimeout(() => xrayCtrl.abort(), 8000);
+  const stopXray = () => xrayCtrl.abort();
+  ctrl.signal.addEventListener('abort', stopXray);
+  try {
+    const [fluxR, kpR, kp3R, xrayR] = await Promise.allSettled([
+      loadJson(URLS.flux, ctrl.signal),
+      loadJson(URLS.kp, ctrl.signal),
+      loadJson(URLS.kp3h, ctrl.signal),
+      loadJson(URLS.xray, xrayCtrl.signal)
+    ]);
+    if (id !== refreshSeq) return;
+    if (fluxR.status !== 'fulfilled') throw fluxR.reason;
+    const flux = lastNumeric(rowsOf(fluxR.value), r => r.flux);
+    let kp = kpR.status === 'fulfilled' ? lastNumeric(rowsOf(kpR.value), r => r.estimated_kp) : null;
+    if (!kp && kp3R.status === 'fulfilled') kp = lastNumeric(rowsOf(kp3R.value), r => r.Kp);
+    if (!flux || !kp) throw new Error('Solar indices unavailable');
+    const aIndex = kp3R.status === 'fulfilled' ? runningA(rowsOf(kp3R.value)) : null;
+    const xray = xrayR.status === 'fulfilled'
+      ? lastNumeric(rowsOf(xrayR.value).filter(r => r && r.energy === '0.1-0.8nm'), r => r.flux)
+      : null;
+    render(bandConditions(flux.value, kp.value, aIndex, xray ? xray.value : NaN));
+    document.getElementById('sfi').textContent = Number.isInteger(flux.value) ? String(flux.value) : flux.value.toFixed(1);
+    document.getElementById('k').textContent = formatKp(kp.value);
+    document.getElementById('geo').textContent = geomagnetic(kp.value, aIndex);
+    const status = document.getElementById('status');
+    status.classList.remove('err');
+    status.textContent = '● DATA LOADED';
+    const stamp = parseNoaaTime(kp.time);
+    document.getElementById('updated').textContent = Number.isNaN(stamp)
+      ? 'Data timestamp unavailable'
+      : 'Kp observed: ' + new Date(stamp).toLocaleString();
+  } catch (e) {
+    if (id !== refreshSeq) return;
+    setUnavailable();
+    console.error(e);
+  } finally {
+    clearTimeout(timeout);
+    clearTimeout(xrayTimer);
+    ctrl.signal.removeEventListener('abort', stopXray);
+  }
+}
 render([]);
-async function refresh(){const ctrl=new AbortController();const timeout=setTimeout(()=>ctrl.abort(),12000);try{
-const res=await fetch('https://www.mapforham.com/hf-propagation/data/solar.json',{cache:'no-store',signal:ctrl.signal});if(!res.ok)throw Error('HTTP '+res.status);const data=await res.json();if(!Array.isArray(data.bands_detail))throw Error('Band details unavailable');render(data.bands_detail);
-document.getElementById('sfi').textContent=data.solar_flux??'—';document.getElementById('k').textContent=data.k_index??data.kp??'—';document.getElementById('geo').textContent=safeText(data.geomagnetic_field);document.getElementById('status').textContent='● DATA LOADED';
-const t=Date.parse(data.updated);document.getElementById('updated').textContent=Number.isNaN(t)?'Data timestamp unavailable':'Source updated: '+new Date(t).toLocaleString();
-}catch(e){document.getElementById('status').textContent='● DATA UNAVAILABLE';document.getElementById('status').classList.add('err');document.getElementById('updated').textContent='Could not retrieve live data. Open the source link to check current conditions.';console.error(e)}finally{clearTimeout(timeout)}}
-refresh();setInterval(refresh,300000);
+refresh();
+setInterval(refresh, 300000);
 </script></body></html>
