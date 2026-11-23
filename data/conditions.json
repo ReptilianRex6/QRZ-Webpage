@@ -1,20 +1,20 @@
 {
   "source": "n0nbh",
   "stale": false,
-  "updated": "23 Nov 2026 2120 GMT",
-  "sfi": "94",
-  "k": "1",
+  "updated": "23 Nov 2026 2135 GMT",
+  "sfi": "90",
+  "k": "0",
   "a": "4",
-  "geo": "VR QUIET",
+  "geo": "INACTIVE",
   "bands": [
     {
       "m": 80,
-      "day": "Fair",
+      "day": "Good",
       "night": "Good"
     },
     {
       "m": 40,
-      "day": "Fair",
+      "day": "Good",
       "night": "Good"
     },
     {
