@@ -1,11 +1,11 @@
 {
   "source": "n0nbh",
   "stale": false,
-  "updated": "27 Nov 2026 0616 GMT",
+  "updated": "27 Nov 2026 0642 GMT",
   "sfi": "87",
-  "k": "2",
+  "k": "1",
   "a": "4",
-  "geo": "QUIET",
+  "geo": "VR QUIET",
   "bands": [
     {
       "m": 80,
