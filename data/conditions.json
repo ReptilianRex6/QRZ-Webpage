@@ -1,26 +1,26 @@
 {
   "source": "n0nbh",
   "stale": false,
-  "updated": "28 Nov 2026 0324 GMT",
+  "updated": "28 Nov 2026 0335 GMT",
   "sfi": "91",
-  "k": "2",
+  "k": "4",
   "a": "4",
-  "geo": "QUIET",
+  "geo": "ACTIVE",
   "bands": [
     {
       "m": 80,
-      "day": "Fair",
-      "night": "Good"
+      "day": "Poor",
+      "night": "Fair"
     },
     {
       "m": 40,
-      "day": "Fair",
-      "night": "Good"
+      "day": "Poor",
+      "night": "Fair"
     },
     {
       "m": 20,
-      "day": "Good",
-      "night": "Good"
+      "day": "Fair",
+      "night": "Fair"
     },
     {
       "m": 15,
